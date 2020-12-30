@@ -1,10 +1,29 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const config = require('config');
+const db = config.get('MONGO_URI');  
+const dotenv = require('dotenv');
 
 const app = express();
+dotenv.config();
+
+const authRoutes = require('./routes/auth');
+const utilRoutes = require('./routes/utilities');
+
+app.use(express.json());
+app.use(express.urlencoded({ 
+        extended: false 
+}));
+
+app.use('/api/auth', authRoutes);
+app.use('/api/util', utilRoutes);
+
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true }).
+  catch(error => console.log(error));
 
 
-const DEFAULT_PORT = 3000;
+const port = process.env.PORT;
 
-app .listen(DEFAULT_PORT, 'localhost', () => {
-        console.log(`Listening on localhost:${DEFAULT_PORT}`);
+app .listen(port, 'localhost', () => {
+        console.log(`Listening on localhost:${port}`);
 });
