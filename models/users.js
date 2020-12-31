@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
         uid: {
-                type: Number,
+                type: String,
                 required: true,
-                trim: true
+                trim: true,
         },
         email: {
                 type: String,

@@ -1,11 +1,12 @@
-const User = require('../models/users');
 const hash = require('salted-sha1');
+const { nanoid } = require('nanoid');
 const { v1: uuidv1 } = require("uuid");
 const Mailer = require('../utilities/mailer');
+const User = require('../models/users');
 
 exports.register = (req, res, next) => {
-        User.findOne({email: req.body.email }).then(function (oldUser) {
-        
+        User.findOne({ email: req.body.email }, function (err, oldUser) {
+                
                 if(!oldUser) {
                         vsalt = uuidv1();
                         psalt = uuidv1();
@@ -20,20 +21,43 @@ exports.register = (req, res, next) => {
                                 psalt: psalt,
                                 vsalt: vsalt,    
                         };
-                        console.log(document);
+
                         const user = new User(document);
-                        user.save(function(error){
-                                console.log(user);
+                        user.save( function (error){
+                                
                                 if(error)
                                         throw error;
                                 
                                 res.status(200).send({ message: 'User registered. Pls verify mail' });
-                                Mailer.emailer("Registration Successful", "You have been successfully registered.Click the link to verify- " + "<a href=\"http://localhost:3000/user/verify?salt=" + vsalt + "\">Verify</a>", user);
+                                console.log("User " + user.email + " registered.");
+                                Mailer.emailer("Registration Successful", "You have been successfully registered.Click the link to verify- " + "<a href=\"http://localhost:3000/api/auth/verify?salt=" + vsalt + "\">Verify</a>", user);
+                                console.log("Sending Verification Mail to " + user.email);
                                 next();
                         });
                 }
                 else {
                         return res.status(401).send({message: "User already exists"});
+                }
+        });
+};
+
+exports.verify = (req, res, next) => {
+        User.findOne({ vsalt: req.query.salt }, function (err, user) {
+        
+                if(user) {
+                        user.vsalt = uuidv1();
+                        user.uid = nanoid();
+                        user.save( function (error) {
+                                
+                                if(error) 
+                                        throw error;
+                                
+                                res.status(200).send({ message: "Account Verified. Login to Continue."});
+                                console.log("User " + user.email + " verified");
+                        });
+                }
+                else {
+                        return res.status(401).send({ message: "Bad Link"});
                 }
         });
 };

@@ -6,9 +6,9 @@ const register = require('../controllers/register');
 const login = require('../controllers/login');
 
 router.post('/register', register.register);
-/* router.post('/login', validator.loginValidator, login.signin);
-router.get('/verify', validator.verifylinkValidator, register.verify);
-router.get('/resetpass',validator.resetlinkValidator, login.resetpass);
-router.post('/forgotPwd', validator.userForgotPwdValidator, login.forgotPwd);*/
+router.post('/signin', login.signin);
+router.get('/verify', register.verify);
+//router.get('/resetpass',validator.resetlinkValidator, login.resetpass);
+//router.post('/forgotPwd', validator.userForgotPwdValidator, login.forgotPwd);
 
 module.exports = router;

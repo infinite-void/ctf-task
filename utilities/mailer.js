@@ -20,7 +20,7 @@ exports.emailer = (header, body, user) => {
         transport.sendMail(message, function(err, info) {
                 if(err)
                         console.log(err);
-                else    
-                        console.log(info);      
+                else
+                        console.log(info);    
         });
 }

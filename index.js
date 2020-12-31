@@ -4,8 +4,9 @@ const config = require('config');
 const db = config.get('MONGO_URI');  
 const dotenv = require('dotenv');
 
-const app = express();
 dotenv.config();
+const app = express();
+
 
 const authRoutes = require('./routes/auth');
 const utilRoutes = require('./routes/utilities');
