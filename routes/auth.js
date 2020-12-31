@@ -8,7 +8,7 @@ const login = require('../controllers/login');
 router.post('/register', register.register);
 router.post('/signin', login.signin);
 router.get('/verify', register.verify);
-//router.get('/resetpass',validator.resetlinkValidator, login.resetpass);
-//router.post('/forgotPwd', validator.userForgotPwdValidator, login.forgotPwd);
+router.get('/resetpass', login.resetpass);
+router.post('/forgotpass', login.forgotpass);
 
 module.exports = router;
