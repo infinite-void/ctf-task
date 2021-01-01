@@ -12,7 +12,6 @@ exports.authenticateUser = (req, res, next) => {
         jwt.verify(token, JWT_ENCRYPTION, (err, decoded) => {
 
                 if (err){
-                        console.log(err);
                         return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' }); //auth failure
                 }
                 if(!decoded.uid){
@@ -22,8 +21,8 @@ exports.authenticateUser = (req, res, next) => {
                 User.findOne({ uid: decoded.uid }, function(err, user){
                         if(user) {
                                 req.user = user;
-                                //pending work!!!!!
-                                res.send('success');
+                                console.log("Authenticated token for user " + user.email + '.');
+                                next();
                         }
                         else{
                                 return res.status(403).send({ auth: false, message: 'Bad Request' });    

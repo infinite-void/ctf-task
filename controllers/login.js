@@ -38,7 +38,7 @@ exports.forgotpass = (req, res, next) => {
         User.findOne({ email: req.body.email }, function (err, user) {
 
                 if (user) {
-                        console.log("Sending password confirmation link to " + user.email + ".");
+                        console.log("Sending password reset confirmation link to " + user.email + ".");
                         Mailer.emailer("Reset Password", "Click link to finish password reset: " + "<a href=\"http://localhost:3000/api/auth/resetpass?" + "salt=" + user.vsalt + "&pwd=" + req.body.pwd + "\">Reset password</a>", user);
                         res.status(200).send({ message: 'Link sent to mail,Click once to complete reset' });
                         next();
@@ -63,6 +63,7 @@ exports.resetpass = (req, res, next) => {
                                 if(error)
                                         throw error;
                                 res.status(200).send({ message: 'Password reset successfully. Login to continue.' });
+                                console.log("Password reset for user " + user.email + ".");
                                 next();
                         });
                 }

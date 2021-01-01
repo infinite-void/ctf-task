@@ -6,7 +6,7 @@ const register = require('../controllers/register');
 const login = require('../controllers/login');
 
 router.post('/register', register.register);
-router.post('/signin', login.signin);
+router.post('/signin', validator.signinValidator, login.signin);
 router.get('/verify', register.verify);
 router.get('/resetpass', login.resetpass);
 router.post('/forgotpass', login.forgotpass);
