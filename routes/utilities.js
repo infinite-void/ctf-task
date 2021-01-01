@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
+const validator = require('../validators/index');
 const auth = require('../controllers/auth');
 const operations = require('../controllers/operations');
 
-router.post('/add', auth.authenticateUser, operations.add);
-router.post('/delete', auth.authenticateUser, operations.delete);
-router.post('/update', auth.authenticateUser, operations.update);
-router.get('/findrecord', auth.authenticateUser, operations.findrecord);
+router.post('/add', validator.addValidator, auth.authenticateUser, operations.add);
+router.post('/delete', validator.deleteValidator, auth.authenticateUser, operations.delete);
+router.post('/update', validator.updateValidator, auth.authenticateUser, operations.update);
+router.get('/findrecord', validator.findValidator, auth.authenticateUser, operations.findrecord);
 router.get('/listall', auth.authenticateUser, operations.listall);
 
 module.exports = router;

@@ -5,10 +5,10 @@ const validator = require('../validators/index');
 const register = require('../controllers/register');
 const login = require('../controllers/login');
 
-router.post('/register', register.register);
+router.post('/register', validator.registerValidator, register.register);
 router.post('/signin', validator.signinValidator, login.signin);
-router.get('/verify', register.verify);
-router.get('/resetpass', login.resetpass);
-router.post('/forgotpass', login.forgotpass);
+router.get('/verify', validator.verifyValidator, register.verify);
+router.get('/resetpass', validator.resetpassValidator, login.resetpass);
+router.post('/forgotpass', validator.forgotpassValidator, login.forgotpass);
 
 module.exports = router;
