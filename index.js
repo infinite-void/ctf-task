@@ -32,9 +32,6 @@ app.get('/main', (req, res) => {
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true }).
   catch(error => console.log(error));
 
-
-const port = process.env.PORT;
-
-app .listen(port, 'localhost', () => {
+app .listen(process.env.PORT || 3000, 'localhost', () => {
         console.log(`Listening on localhost:${port}`);
 });
