@@ -1,4 +1,4 @@
 {
-        "MONGO_URI": "mongodb://ctf:ctf@localhost:27017/ctf%2Dtask?authSource=admin",
+        "MONGO_URI": "mongodb://@localhost:27017/ctf%2Dtask?authSource=admin",
         "JWT_ENCRYPTION": "f6d9b980-4b21-11eb-a4b4-73a45de0b502"     
 }
