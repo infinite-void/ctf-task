@@ -69,7 +69,7 @@ exports.findrecord = (req, res, next) => {
         if(!req.user) 
                 return res.status(403).send({ message: "Not authenticated to perform this operation."});
 
-        Product.findOne({ uid: req.query.uid }, { _id: 0, uid: 1, name: 1, quantity: 1, lastmodifiedby: 1 }, function(err, product) {
+        Product.findOne({ uid: req.query.uid }, { _id: 0, uid: 1, name: 1, quantity: 1, lastmodifiedby: 1, updatedAt: 1 }, function(err, product) {
                 
                 if(err) 
                         return res.status(501).send({ message: "Error in fetching product. Check product details."});
@@ -84,12 +84,12 @@ exports.listall = (req, res, next) => {
                 return res.status(403).send({ message: "Not authenticated to perform this operation."});
 
         
-        Product.find({}, { _id: 0, uid: 1, name: 1, quantity: 1, lastmodifiedby: 1 }, function(err, products) {
+        Product.find({}, { _id: 0, uid: 1, name: 1, quantity: 1, lastmodifiedby: 1, updatedAt: 1 }, function(err, products) {
                 
                 if(err) 
                         return res.status(501).send({ message: "Error in fetching products. Try again"});
                 
                 
-                return res.status(200).send(products);
+                return res.status(200).send({ products: products});
         });
 };

@@ -1,0 +1,93 @@
+<!DOCTYPE html> 
+<head>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                  
+</head>
+<html> 
+        <body>
+                <div id = 'title-bar' style = "text-align: center; border: double;"> 
+                        <h3>Product Quantity Management</h3>
+                </div>
+                <br />
+                <div style="width: 100%; display: table;">
+                        <div style="display: table-row">
+                                <div style="width: 50%; display: table-cell;border: double; text-align: center"> 
+                                        <h5>Register</h5>
+                                        <label>Name</label> <input type = 'text' id = 'rname'/> <br /> <br />
+                                        <label>Phone</label> <input type = 'text' id = 'rphone' /> <br /> <br />
+                                        <label>e-mail</label> <input type = 'text' id = 'remail' /> <br /> <br />
+                                        <label>Password</label> <input type = 'password' id = 'rpwd' /> <br /> <br />
+                                        <button onclick="register()">Register</button><br /><br />
+                                </div>
+                                <div style="display: table-cell; border: double;text-align: center;"> 
+                                        <h5>Login</h5>
+                                        <label>e-mail</label> <input type = 'text' id = 'email' /> <br /> <br />
+                                        <label>Password</label> <input type = 'password' id = pwd /> <br /> <br />
+                                        <button onclick="login()">Login</button> 
+                                        <button onclick="forgotpass()">Reset Password</button>
+                                        <p> To reset password, enter your mail-ID and your new password.</p><p>The verification link will be sent to you mail. Once verified, your password will be reset.</p>
+                                </div>
+                        </div>
+                    </div>
+                         
+                </div>
+                <script lang="javascript">
+                        function login() {
+                                var email = document.getElementById('email').value;
+                                var pwd = document.getElementById('pwd').value;
+                                
+                                $.post("http://localhost:3000/api/auth/signin", {
+                                        email: email, 
+                                        pwd: pwd
+                                }, function(result){
+                                        
+                                        if(result.authtoken) {
+                                                document.cookie = result.authtoken;
+                                                window.location.replace("http://localhost:3000/main");
+                                        }
+                                        else 
+                                                alert("Error in signin");
+                                });
+                        }
+
+                        function register() {
+                                var email = document.getElementById('remail').value;
+                                var pwd = document.getElementById('rpwd').value;
+                                var name = document.getElementById('rname').value;
+                                var phone = document.getElementById('rphone').value;
+
+                                $.post("http://localhost:3000/api/auth/register", {
+                                        email: email, 
+                                        pwd: pwd,
+                                        name: name,
+                                        phone: phone
+                                }, function(result){
+                                        
+                                        if(result) {
+                                                alert(result.message);   
+                                        }
+                                        else 
+                                                alert("Error in signin");
+                                });
+                        }
+
+                        function forgotpass() {
+                                var email = document.getElementById('email').value;
+                                var pwd = document.getElementById('pwd').value;
+                                
+                                $.post("http://localhost:3000/api/auth/forgotpass", {
+                                        email: email, 
+                                        pwd: pwd
+                                }, function(result){
+                                        
+                                        if(result) {
+                                                alert(result.message);
+                                        }
+                                        else 
+                                                alert("Error in signin");
+                                });
+                        }
+                </script>
+        </body>
+</html>

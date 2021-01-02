@@ -39,7 +39,7 @@ exports.forgotpass = (req, res, next) => {
 
                 if (user) {
                         console.log("Sending password reset confirmation link to " + user.email + ".");
-                        Mailer.emailer("Reset Password", "Click link to finish password reset: " + "<a href=\"http://localhost:3000/api/auth/resetpass?" + "salt=" + user.vsalt + "&pwd=" + req.body.pwd + "\">Reset password</a>", user);
+                        Mailer.emailer("Reset Password", "Click link to finish password reset: " + "<a href=\"http://localhost:3000/api/auth/resetpass?" + "vsalt=" + user.vsalt + "&pwd=" + req.body.pwd + "\">Reset password</a>", user);
                         res.status(200).send({ message: 'Link sent to mail,Click once to complete reset' });
                         next();
                 }
@@ -50,7 +50,7 @@ exports.forgotpass = (req, res, next) => {
 };
 
 exports.resetpass = (req, res, next) => {
-        User.findOne({ vsalt: req.query.salt }, function (err, user) {
+        User.findOne({ vsalt: req.query.vsalt }, function (err, user) {
                 console.log(user);
 
                 if (user) {

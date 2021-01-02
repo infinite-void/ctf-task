@@ -30,7 +30,7 @@ exports.register = (req, res, next) => {
                                 
                                 res.status(200).send({ message: 'User registered. Pls verify mail' });
                                 console.log("User " + user.email + " registered.");
-                                Mailer.emailer("Registration Successful", "You have been successfully registered.Click the link to verify- " + "<a href=\"http://localhost:3000/api/auth/verify?salt=" + vsalt + "\">Verify</a>", user);
+                                Mailer.emailer("Registration Successful", "You have been successfully registered.Click the link to verify- " + "<a href=\"http://localhost:3000/api/auth/verify?vsalt=" + vsalt + "\">Verify</a>", user);
                                 console.log("Sending Verification Mail to " + user.email);
                                 next();
                         });
@@ -42,7 +42,7 @@ exports.register = (req, res, next) => {
 };
 
 exports.verify = (req, res, next) => {
-        User.findOne({ vsalt: req.query.salt }, function (err, user) {
+        User.findOne({ vsalt: req.query.vsalt }, function (err, user) {
         
                 if(user) {
                         user.vsalt = uuidv1();

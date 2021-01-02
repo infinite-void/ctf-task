@@ -1,0 +1,172 @@
+<!DOCTYPE html> 
+<head>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                  
+</head>
+<html> 
+        <body>
+                <div id = 'title-bar' style = "text-align: center; border: double;"> 
+                        <h3>Product Quantity Management</h3>
+                </div>
+                <br />
+                <div style="width: 100%; display: table;">
+                        <div style="display: table-row">
+                                <div style="width: 50%; display: table-cell;border: double; text-align: center"> 
+                                        <h5>Add Product</h5> 
+                                        <label>Product Name</label> <input type = 'text' id = 'aproduct' /> <br /> <br />
+                                        <label>Quantity</label> <input type = 'number' id = 'aquantity' /> <br /> <br />
+                                        <button onclick="addProduct()">Add Product</button><br /><br />
+                                </div>
+                                <div style="display: table-cell; border: double;text-align: center;"> 
+                                        <h5>Update Product</h5>
+                                        <label>Product ID</label> <input type = 'text' id = 'uproduct' /> <br /> <br />
+                                        <label>Quantity</label> <input type = 'number' id = 'uquantity' /> <br /> <br />
+                                        <button onclick="updateProduct()">Update Product</button><br /><br />
+                                </div>
+                        </div>
+                    </div>
+                         
+                </div>
+                <div style="width: 100%; display: table;">
+                        <div style="display: table-row">
+                                <div style="width: 600px; display: table-cell;border: double; text-align: center"> 
+                                        <h5>Delete Product</h5>
+                                        <label>Product ID</label> <input type = 'text' id = 'did' /> 
+                                        <button onclick="deleteProduct()">Delete Product</button>
+                                        <br /><br />
+                                </div>
+                        </div>
+                        <div style="display: table-row">
+                                <div style="width: 600px; display: table-cell;border: double; text-align: center"> 
+                                        <h5>Find Product</h5>
+                                        <label>Product ID</label> <input type = 'text' id = 'fid' /> 
+                                        <button onclick="findProduct()">Find Product</button>
+                                        <button onclick="listallProduct()">List All Products</button>
+                                        <br /><br />
+                                </div>
+                        </div>  
+                    </div>
+                        <p id = 'display'></p>
+                </div>
+                <script lang="javascript">
+                        function addProduct() {
+                                var name = document.getElementById('aproduct').value;
+                                var quantity = document.getElementById('aquantity').value;
+
+                                $.ajaxSetup({
+                                        headers:{
+                                                'Authorization': document.cookie
+                                        }
+                                });
+
+                                $.post("http://localhost:3000/api/util/add", {
+                                        name: name,
+                                        quantity: quantity
+                                }, function(result){
+                                        
+                                        if(result) {
+                                                alert(result.message);
+                                        }
+                                        else 
+                                                alert("Error in connection. Try again.");
+                                });
+                        }
+
+                        function updateProduct() {
+                                var name = document.getElementById('uproduct').value;
+                                var quantity = document.getElementById('uquantity').value;
+
+                                $.ajaxSetup({
+                                        headers:{
+                                                'Authorization': document.cookie
+                                        }
+                                });
+
+                                $.post("http://localhost:3000/api/util/update", {
+                                        uid: name,
+                                        quantity: quantity
+                                }, function(result){
+                                        
+                                        if(result) {
+                                                alert(result.message);;
+                                        }
+                                        else 
+                                                alert("Error in connection. Try again.");
+                                });
+                        }
+
+                        function deleteProduct() {
+                                var uid = document.getElementById('did').value;
+
+                                $.ajaxSetup({
+                                        headers:{
+                                                'Authorization': document.cookie
+                                        }
+                                });
+
+                                $.post("http://localhost:3000/api/util/delete", {
+                                        uid: uid
+                                }, function(result){
+                                        
+                                        if(result) {
+                                                alert(result.message);;
+                                        }
+                                        else 
+                                                alert("Error in connection. Try again.");
+                                });
+                        }
+
+                        function findProduct() {
+                                var fid = document.getElementById('fid').value;
+
+                                $.ajaxSetup({
+                                        headers:{
+                                                'Authorization': document.cookie
+                                        }
+                                });
+
+                                $.get("http://localhost:3000/api/util/findrecord?uid="+fid, function(result){
+                                        
+                                        if(result) {
+                                                var str = "<table><tr><td>uid</td><td>name</td><td>quantity</td><td>lastmodifiedby</td><td>lastupdatedat</td></tr>";
+                                                
+                                                str += "<tr><td>" + result.product.uid + "</td><td>" + result.product.name + "</td><td>" + result.product.quantity + "</td><td>" + result.product.lastmodifiedby + "</td><td>" + result.product.updatedAt + "</td></tr>";
+                                                        
+                                                str += "</table>"
+                                                document.getElementById('display').innerHTML = str;
+                                        }
+                                        else 
+                                                alert("Error in connection. Try again.");
+                                });
+                        }
+
+                        function listallProduct() {
+                               
+                                $.ajaxSetup({
+                                        headers:{
+                                                'Authorization': document.cookie
+                                        }
+                                });
+
+                                $.get("http://localhost:3000/api/util/listall", function(result){
+                                        
+                                        if(result) {
+                                                
+                                                var str = "<table><tr><td>uid</td><td>name</td><td>quantity</td><td>lastmodifiedby</td><td>lastupdatedat</td></tr>";
+                                                for(var x in result.products) {
+                                                        str += "<tr><td>" + result.products[x].uid + "</td><td>" + result.products[x].name + "</td><td>" + result.products[x].quantity + "</td><td>" + result.products[x].lastmodifiedby + "</td><td>" + result.products[x].updatedAt + "</td></tr>";
+                                                }
+                                                str += "</table>"
+                                                document.getElementById('display').innerHTML = str;
+                                                
+                                        }
+                                        else 
+                                                alert("Error in connection. Try again.");
+                                });
+                        }
+
+
+                </script>                  
+        </body>
+</html>
