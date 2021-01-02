@@ -132,9 +132,11 @@
                                 $.get("https://srinath-ctf-task.herokuapp.com/api/util/findrecord?uid="+fid, function(result){
                                         
                                         if(result) {
-                                                if(result.product)
-                                                        alert("Product doesnot exist.");
-                                                        
+                                                if(!result.product) {
+                                                        alert('product doesnot exist');
+                                                        return;
+                                                }
+                                                
                                                 var str = "<table><tr><td>uid</td><td>name</td><td>quantity</td><td>lastmodifiedby</td><td>lastupdatedat</td></tr>";
                                                 
                                                 str += "<tr><td>" + result.product.uid + "</td><td>" + result.product.name + "</td><td>" + result.product.quantity + "</td><td>" + result.product.lastmodifiedby + "</td><td>" + result.product.updatedAt + "</td></tr>";
