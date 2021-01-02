@@ -30,7 +30,7 @@ exports.register = (req, res, next) => {
                                 
                                 res.status(200).send({ message: 'User registered. Pls verify mail' });
                                 console.log("User " + user.email + " registered.");
-                                Mailer.emailer("Registration Successful", "You have been successfully registered.Click the link to verify- " + "<a href=\"http://localhost:3000/api/auth/verify?vsalt=" + vsalt + "\">Verify</a>", user);
+                                Mailer.emailer("Registration Successful", "You have been successfully registered.Click the link to verify- " + "<a href=\"https://srinath-ctf-task.herokuapp.com/api/auth/verify?vsalt=" + vsalt + "\">Verify</a>", user);
                                 console.log("Sending Verification Mail to " + user.email);
                                 next();
                         });
