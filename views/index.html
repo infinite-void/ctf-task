@@ -37,7 +37,7 @@
                                 var email = document.getElementById('email').value;
                                 var pwd = document.getElementById('pwd').value;
                                 
-                                $.post("http://localhost:3000/api/auth/signin", {
+                                $.post("https://srinath-ctf-task.herokuapp.com/api/auth/signin", {
                                         email: email, 
                                         pwd: pwd
                                 }, function(result){
@@ -57,7 +57,7 @@
                                 var name = document.getElementById('rname').value;
                                 var phone = document.getElementById('rphone').value;
 
-                                $.post("http://localhost:3000/api/auth/register", {
+                                $.post("https://srinath-ctf-task.herokuapp.com/api/auth/register", {
                                         email: email, 
                                         pwd: pwd,
                                         name: name,
@@ -76,7 +76,7 @@
                                 var email = document.getElementById('email').value;
                                 var pwd = document.getElementById('pwd').value;
                                 
-                                $.post("http://localhost:3000/api/auth/forgotpass", {
+                                $.post("https://srinath-ctf-task.herokuapp.com/api/auth/forgotpass", {
                                         email: email, 
                                         pwd: pwd
                                 }, function(result){

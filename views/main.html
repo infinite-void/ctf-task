@@ -60,7 +60,7 @@
                                         }
                                 });
 
-                                $.post("http://localhost:3000/api/util/add", {
+                                $.post("https://srinath-ctf-task.herokuapp.com/api/util/add", {
                                         name: name,
                                         quantity: quantity
                                 }, function(result){
@@ -83,7 +83,7 @@
                                         }
                                 });
 
-                                $.post("http://localhost:3000/api/util/update", {
+                                $.post("https://srinath-ctf-task.herokuapp.com/api/util/update", {
                                         uid: name,
                                         quantity: quantity
                                 }, function(result){
@@ -105,7 +105,7 @@
                                         }
                                 });
 
-                                $.post("http://localhost:3000/api/util/delete", {
+                                $.post("https://srinath-ctf-task.herokuapp.com/api/util/delete", {
                                         uid: uid
                                 }, function(result){
                                         
@@ -126,7 +126,7 @@
                                         }
                                 });
 
-                                $.get("http://localhost:3000/api/util/findrecord?uid="+fid, function(result){
+                                $.get("https://srinath-ctf-task.herokuapp.com/api/util/findrecord?uid="+fid, function(result){
                                         
                                         if(result) {
                                                 var str = "<table><tr><td>uid</td><td>name</td><td>quantity</td><td>lastmodifiedby</td><td>lastupdatedat</td></tr>";
@@ -149,7 +149,7 @@
                                         }
                                 });
 
-                                $.get("http://localhost:3000/api/util/listall", function(result){
+                                $.get("https://srinath-ctf-task.herokuapp.com/api/util/listall", function(result){
                                         
                                         if(result) {
                                                 
