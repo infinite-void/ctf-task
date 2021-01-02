@@ -71,6 +71,7 @@
                                         else 
                                                 alert("Error in connection. Try again.");
                                 });
+                                listallProduct();
                         }
 
                         function updateProduct() {
@@ -94,6 +95,7 @@
                                         else 
                                                 alert("Error in connection. Try again.");
                                 });
+                                listallProduct();
                         }
 
                         function deleteProduct() {
@@ -115,6 +117,7 @@
                                         else 
                                                 alert("Error in connection. Try again.");
                                 });
+                                listallProduct();
                         }
 
                         function findProduct() {
@@ -129,6 +132,9 @@
                                 $.get("https://srinath-ctf-task.herokuapp.com/api/util/findrecord?uid="+fid, function(result){
                                         
                                         if(result) {
+                                                if(result.product)
+                                                        alert("Product doesnot exist.");
+                                                        
                                                 var str = "<table><tr><td>uid</td><td>name</td><td>quantity</td><td>lastmodifiedby</td><td>lastupdatedat</td></tr>";
                                                 
                                                 str += "<tr><td>" + result.product.uid + "</td><td>" + result.product.name + "</td><td>" + result.product.quantity + "</td><td>" + result.product.lastmodifiedby + "</td><td>" + result.product.updatedAt + "</td></tr>";
@@ -139,6 +145,7 @@
                                         else 
                                                 alert("Error in connection. Try again.");
                                 });
+                                
                         }
 
                         function listallProduct() {
