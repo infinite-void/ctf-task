@@ -1,9 +1,9 @@
 # ctf-task
 Making NodeJS backend to support authentication of users and edit product databse in MongoDB
 
-Front End html pages is shit. Never mind.<br>
+Front End html pages are shit. Never mind.<br>
 
-hosted at https://srinath-ctf-task.herokuapp.com <br>
+This is me just writing REST API for a backend server<br> 
 
 USES JWT token to authenticate user. JWT stored as cookie. Logout option not included in case of logging out got to erase the cookie with front end.<br>
 provided api(in case of postman usage)<br>
